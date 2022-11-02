@@ -1,0 +1,28 @@
+version: '3.9'
+
+services: 
+  
+  prj_001: 
+    environment: 
+        POSTGRES_PASSWORD: yellowwindows872sour
+        POSTGRES_USER: jvroom
+        POSTGRES_DB: covidproject
+    image: "postgres:latest"
+    ports: 
+        - "5431:5432"
+    volumes: 
+        - covid_data:/var/lib/postgresql/data
+        - ./db:/docker-entrypoint-initdb.d/
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment: 
+        PGADMIN_DEFAULT_EMAIL: "jason.vrooman@yahoo.ca"
+        PGADMIN_DEFAULT_PASSWORD: "hownowbrowncow"
+    ports: 
+        - "16543:80"
+    depends_on: 
+        - prj_001       
+    
+volumes:
+    covid_data:
